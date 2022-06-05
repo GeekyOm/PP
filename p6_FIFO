@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int refString[10], pagefault = 0, m, n, s, pages, frames;
+    
+    printf("\n Enter The Number Of Pages : \t");
+    scanf("%d", &pages);
+    
+    printf("\n Enter Reference String Values : \n");
+    
+    for(m=0 ; m<pages ; m++)
+    {
+        printf("Value No.[%d] : \t", m+1);
+        scanf("%d", &refString[m]);
+    }
+    
+    printf("\n What are the Total Number of Frames : ");
+    scanf("%d", &frames);
+    
+    int temp[frames];
+    for(m=0 ; m<frames ; m++)
+    {
+        temp[m] = -1;
+    }
+    
+    for(m=0 ; m<pages ; m++)
+    {
+        s = 0;
+        
+        for(n=0 ; n<frames ; n++)
+        {
+            if(refString[m] == temp[n])
+            {
+                s++;
+                pagefault--;
+            }
+            
+            pagefault++;
+            if((pagefault  <= frames) && (s==0))
+            {
+                temp[m] = refString[m];
+            }
+            else if(s==0)
+            {
+                temp[(pagefault - 1) % frames] = refString[m];
+            }
+            
+            printf("\n");
+            
+            for(n=0 ; n<frames ; n++)
+            {
+                printf("%d\t", temp[n]);
+            }
+            
+            printf("\n Total Page Faults\t%d\n", pagefault);
+        }
+    }
+}
