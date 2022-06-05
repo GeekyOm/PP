@@ -3,6 +3,12 @@
 
 int mutex = 1, full = 0, empty = 3, x=0;
 
+int wait(int s)
+    return (--s);
+ 
+int signal(int s)
+    return(++s);
+
 void main()
 {
     int n;
